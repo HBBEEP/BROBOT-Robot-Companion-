@@ -30,7 +30,6 @@ install(PROGRAMS
   scripts/brobot_hand_gesture_recognition.py
   scripts/brobot_speak.py
   scripts/brobot_voice_recognition.py
-  scripts/brobot_hand_logic.py
   scripts/brobot_camera.py
   scripts/brobot_current_timer.py
   DESTINATION lib/${PROJECT_NAME}
