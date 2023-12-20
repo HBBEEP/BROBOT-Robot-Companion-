@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<robot name="brobor" xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+<xacro:include filename="include.xacro" />
+
+  <link name="world" />
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.1" radius="0.2" />
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+    
+    
+    <inertial>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <mass value="0.1" />
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+    </inertial>
+  </link>
+
+  <joint name="fixed" type="fixed">
+    <parent link="world" />
+    <child link="base_link" />
+  </joint>
+
+  <link name="link_1">
+    <visual>
+      <geometry>
+        <!-- <mesh filename="package://brobot_control/meshes/visual/Body.stl" scale="0.07 0.07 0.07" /> -->
+        <mesh filename="file://$(find ${description_package})/meshes/visual/Body.stl " scale="0.07 0.07 0.07"/>
+        <!-- <cylinder length="0.3" radius="0.2" /> -->
+      </geometry>
+      <origin rpy="0 0 1.5708" xyz="-0.32 -0.02 -0.08" />
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <mass value="0.1" />
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+    </inertial>
+
+  </link>
+    <joint name="joint_1" type="revolute">
+    <parent link="base_link" />
+    <child link="link_1" />
+    <origin xyz="0 0 0.35" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.57" upper="1.57" effort="0" velocity="0.5" />
+  </joint>
+
+  <link name="link_2">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find ${description_package})/meshes/visual/head.stl " scale="0.07 0.07 0.07"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.02 0.35 -0.40"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <mass value="0.1" />
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+    </inertial>
+    
+  </link>
+  <joint name="joint_2" type="revolute">
+    <parent link="link_1" />
+    <child link="link_2" />
+    <origin xyz="0 0 0.3" rpy="0 0 1.57" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.57" upper="1.57" effort="0" velocity="0.5" />
+  </joint>
+
+  <link name="link_3">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find ${description_package})/meshes/visual/arm.stl " scale="0.07 0.07 0.07"/>
+      </geometry>
+      <origin rpy="0 0 -1.5708" xyz="0.29 -0.25 -0.255"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <mass value="0.1" />
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+    </inertial>
+  </link>
+
+  <joint name="joint_3" type="revolute">
+    <parent link="link_1" />
+    <child link="link_3" />
+    <origin xyz="0 0.25 0.15" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.57" upper="1.57" effort="0" velocity="0.5" />
+  </joint>
+
+  <link name="link_4">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find ${description_package})/meshes/visual/arm.stl " scale="0.07 0.07 0.07"/>
+      </geometry>
+      
+      <origin rpy="0 0 1.5708" xyz="-0.29 0.25 -0.255"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <mass value="0.1" />
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+    </inertial>
+  </link>
+
+  <joint name="joint_4" type="revolute">
+    <parent link="link_1" />
+    <child link="link_4" />
+    <origin xyz="0 -0.25 0.15" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.57" upper="1.57" effort="0" velocity="0.5" />
+  </joint>
+  
+ <xacro:include filename="gazebo.xacro" />
+
+</robot>
